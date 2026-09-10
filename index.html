@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GravityHub Key System</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    background:
+        radial-gradient(circle at 50% 35%,#24104d 0%,#0d061d 38%,#030308 78%);
+}
+
+/* ===== SPACE ===== */
+
+.space{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+}
+
+.glow{
+    position:absolute;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    background:#7c3aed;
+    filter:blur(170px);
+    opacity:.13;
+    animation:glowMove 8s infinite alternate ease-in-out;
+}
+
+.glow.one{left:-220px;top:-180px}
+.glow.two{right:-220px;bottom:-220px;animation-delay:2s}
+
+@keyframes glowMove{
+    from{transform:translate(0,0)}
+    to{transform:translate(80px,-50px)}
+}
+
+.star{
+    position:absolute;
+    width:3px;
+    height:3px;
+    border-radius:50%;
+    background:#d8b4fe;
+    box-shadow:0 0 12px #a855f7;
+    animation:twinkle 3s infinite ease-in-out;
+}
+
+.star:nth-child(3){left:8%;top:15%;animation-delay:.2s}
+.star:nth-child(4){left:18%;top:72%;animation-delay:1s}
+.star:nth-child(5){left:29%;top:22%;animation-delay:1.7s}
+.star:nth-child(6){left:43%;top:11%;animation-delay:.5s}
+.star:nth-child(7){left:58%;top:78%;animation-delay:2s}
+.star:nth-child(8){left:73%;top:17%;animation-delay:1.2s}
+.star:nth-child(9){left:87%;top:67%;animation-delay:.8s}
+.star:nth-child(10){left:94%;top:30%;animation-delay:2.4s}
+.star:nth-child(11){left:67%;top:45%;animation-delay:1.5s}
+.star:nth-child(12){left:12%;top:45%;animation-delay:2.2s}
+
+@keyframes twinkle{
+    0%,100%{
+        opacity:.15;
+        transform:scale(.5);
+    }
+    50%{
+        opacity:1;
+        transform:scale(1.8);
+    }
+}
+
+/* ===== CARD ===== */
+
+.card{
+    position:relative;
+    width:min(92%,500px);
+    padding:36px;
+    border-radius:30px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(27,14,49,.93),
+            rgba(6,6,13,.96)
+        );
+    border:1px solid rgba(168,85,247,.35);
+    box-shadow:
+        0 0 80px rgba(124,58,237,.18),
+        inset 0 0 40px rgba(168,85,247,.035);
+    backdrop-filter:blur(25px);
+    animation:cardIn .8s ease;
+}
+
+@keyframes cardIn{
+    from{
+        opacity:0;
+        transform:translateY(30px) scale(.95);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+.card::after{
+    content:"";
+    position:absolute;
+    inset:-1px;
+    border-radius:30px;
+    border:1px solid rgba(192,132,252,.15);
+    pointer-events:none;
+    animation:borderPulse 3s infinite ease-in-out;
+}
+
+@keyframes borderPulse{
+    0%,100%{opacity:.3}
+    50%{opacity:1}
+}
+
+/* ================================================= */
+/*                 BIG PURPLE METEOR                  */
+/* ================================================= */
+
+.logo{
+    position:relative;
+    width:125px;
+    height:125px;
+    margin:0 auto 16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* Long fire trail */
+
+.meteor-tail{
+    position:absolute;
+    width:32px;
+    height:125px;
+    left:39px;
+    top:-3px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(255,255,255,.95) 0%,
+            rgba(216,180,254,.95) 12%,
+            rgba(168,85,247,.9) 32%,
+            rgba(124,58,237,.55) 58%,
+            rgba(88,28,135,.18) 78%,
+            transparent 100%
+        );
+
+    clip-path:polygon(
+        50% 0%,
+        78% 25%,
+        62% 45%,
+        85% 65%,
+        55% 100%,
+        40% 67%,
+        20% 88%,
+        32% 50%,
+        10% 31%
+    );
+
+    filter:
+        blur(1px)
+        drop-shadow(0 0 9px #c084fc)
+        drop-shadow(0 0 20px #9333ea);
+
+    transform:rotate(43deg);
+    animation:tailFlow 1.4s infinite ease-in-out;
+}
+
+@keyframes tailFlow{
+    0%,100%{
+        opacity:.72;
+        transform:rotate(43deg) scaleY(.92) translateY(4px);
+    }
+    50%{
+        opacity:1;
+        transform:rotate(43deg) scaleY(1.08) translateY(-4px);
+    }
+}
+
+/* Outer fire */
+
+.meteor-fire{
+    position:absolute;
+    width:91px;
+    height:91px;
+    border-radius:50%;
+
+    background:
+        conic-gradient(
+            from 20deg,
+            transparent 0deg,
+            #7e22ce 35deg,
+            #d946ef 75deg,
+            #c084fc 120deg,
+            transparent 165deg,
+            #7c3aed 225deg,
+            #e879f9 290deg,
+            transparent 345deg
+        );
+
+    filter:
+        blur(3px)
+        drop-shadow(0 0 12px #a855f7)
+        drop-shadow(0 0 30px #7c3aed);
+
+    animation:fireRotate 2.2s linear infinite;
+}
+
+@keyframes fireRotate{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+/* Main rocky meteor */
+
+.meteor-rock{
+    position:absolute;
+    width:69px;
+    height:69px;
+
+    border-radius:
+        43% 57% 54% 46%
+        / 48% 42% 58% 52%;
+
+    background:
+        radial-gradient(
+            circle at 29% 24%,
+            #f5eaff 0%,
+            #d8b4fe 7%,
+            #a855f7 19%,
+            #7e22ce 37%,
+            #4c1d70 61%,
+            #21102f 82%,
+            #0d0715 100%
+        );
+
+    box-shadow:
+        inset -9px -10px 12px rgba(0,0,0,.55),
+        inset 7px 6px 10px rgba(255,255,255,.18),
+        0 0 8px #e9d5ff,
+        0 0 25px #a855f7,
+        0 0 55px rgba(124,58,237,.8);
+
+    transform:rotate(-24deg);
+    animation:meteorFloat 2.1s infinite ease-in-out;
+    z-index:3;
+}
+
+@keyframes meteorFloat{
+    0%,100%{
+        transform:rotate(-24deg) translateY(-4px);
+    }
+    50%{
+        transform:rotate(-19deg) translateY(7px);
+    }
+}
+
+/* Craters */
+
+.crater{
+    position:absolute;
+    border-radius:50%;
+    background:rgba(25,8,39,.7);
+    box-shadow:
+        inset 3px 3px 5px rgba(0,0,0,.65),
+        1px 1px 2px rgba(255,255,255,.15);
+}
+
+.crater.one{
+    width:15px;
+    height:10px;
+    left:13px;
+    top:22px;
+    transform:rotate(-20deg);
+}
+
+.crater.two{
+    width:10px;
+    height:8px;
+    right:12px;
+    top:18px;
+}
+
+.crater.three{
+    width:18px;
+    height:12px;
+    right:14px;
+    bottom:15px;
+    transform:rotate(25deg);
+}
+
+.crater.four{
+    width:8px;
+    height:7px;
+    left:27px;
+    bottom:11px;
+}
+
+/* Bright edge */
+
+.meteor-edge{
+    position:absolute;
+    width:73px;
+    height:73px;
+    border-radius:50%;
+    border:2px solid rgba(216,180,254,.5);
+    filter:blur(1px);
+    z-index:4;
+    animation:edgePulse 1.8s infinite alternate;
+}
+
+@keyframes edgePulse{
+    from{
+        opacity:.35;
+        transform:scale(.98);
+    }
+    to{
+        opacity:1;
+        transform:scale(1.04);
+    }
+}
+
+/* Sparks */
+
+.spark{
+    position:absolute;
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:#f3e8ff;
+    box-shadow:0 0 12px #c084fc;
+    z-index:5;
+    animation:sparkFly 1.5s infinite ease-out;
+}
+
+.spark:nth-child(6){
+    left:15px;
+    top:79px;
+    animation-delay:.1s;
+}
+
+.spark:nth-child(7){
+    left:91px;
+    top:34px;
+    animation-delay:.45s;
+}
+
+.spark:nth-child(8){
+    left:25px;
+    top:95px;
+    animation-delay:.8s;
+}
+
+.spark:nth-child(9){
+    left:87px;
+    top:77px;
+    animation-delay:1.1s;
+}
+
+@keyframes sparkFly{
+    0%{
+        opacity:0;
+        transform:translate(0,0) scale(.3);
+    }
+    25%{
+        opacity:1;
+    }
+    100%{
+        opacity:0;
+        transform:translate(-20px,28px) scale(1.2);
+    }
+}
+
+/* ===== TITLE ===== */
+
+.title{
+    text-align:center;
+    font-size:34px;
+    font-weight:900;
+    letter-spacing:-1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ffffff,
+            #d8b4fe,
+            #a855f7,
+            #ffffff
+        );
+
+    background-size:250% auto;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    animation:titleShine 4s linear infinite;
+}
+
+@keyframes titleShine{
+    to{
+        background-position:250% center;
+    }
+}
+
+.subtitle{
+    text-align:center;
+    margin-top:7px;
+    color:#9ca3af;
+    font-size:14px;
+}
+
+/* ===== FEATURES ===== */
+
+.features{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:9px;
+    margin:26px 0;
+}
+
+.feature{
+    padding:12px 5px;
+    text-align:center;
+    border-radius:14px;
+    background:rgba(255,255,255,.025);
+    border:1px solid rgba(168,85,247,.14);
+    transition:.3s ease;
+}
+
+.feature:hover{
+    transform:translateY(-5px);
+    background:rgba(168,85,247,.09);
+    border-color:rgba(168,85,247,.5);
+    box-shadow:0 8px 25px rgba(124,58,237,.2);
+}
+
+.feature-icon{
+    font-size:18px;
+    margin-bottom:5px;
+}
+
+.feature-title{
+    font-size:11px;
+    font-weight:bold;
+    color:#e9d5ff;
+}
+
+.feature-text{
+    font-size:9px;
+    color:#6b7280;
+    margin-top:3px;
+}
+
+/* ===== KEY ===== */
+
+.key-section{
+    padding:19px;
+    border-radius:19px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(168,85,247,.08),
+            rgba(0,0,0,.3)
+        );
+    border:1px solid rgba(168,85,247,.23);
+    transition:.3s ease;
+}
+
+.key-section:hover{
+    border-color:rgba(192,132,252,.6);
+    box-shadow:0 0 30px rgba(124,58,237,.15);
+}
+
+.key-label{
+    display:block;
+    color:#c084fc;
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:1px;
+    margin-bottom:9px;
+}
+
+.key{
+    padding:15px;
+    border-radius:13px;
+    background:#050509;
+    border:1px solid rgba(139,92,246,.25);
+    color:#f3e8ff;
+    font-size:12px;
+    line-height:1.5;
+    word-break:break-all;
+    box-shadow:inset 0 0 20px rgba(124,58,237,.06);
+}
+
+/* ===== COPY BUTTON ===== */
+
+.copy-btn{
+    position:relative;
+    overflow:hidden;
+    width:100%;
+    margin-top:15px;
+    padding:16px;
+    border:0;
+    border-radius:15px;
+    cursor:pointer;
+    color:white;
+    font-size:15px;
+    font-weight:800;
+
+    background:
+        linear-gradient(
+            110deg,
+            #6d28d9,
+            #a855f7,
+            #7c3aed,
+            #6d28d9
+        );
+
+    background-size:250% 100%;
+
+    box-shadow:0 10px 35px rgba(124,58,237,.3);
+    animation:buttonGradient 4s linear infinite;
+    transition:.25s ease;
+}
+
+@keyframes buttonGradient{
+    to{
+        background-position:250% 0;
+    }
+}
+
+.copy-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 15px 45px rgba(168,85,247,.45);
+}
+
+.copy-btn:active{
+    transform:scale(.97);
+}
+
+.copy-btn::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:60%;
+    height:100%;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.3),
+        transparent
+    );
+    transform:skewX(-20deg);
+    animation:buttonShine 3s infinite;
+}
+
+@keyframes buttonShine{
+    0%{left:-100%}
+    45%,100%{left:150%}
+}
+
+.status{
+    min-height:20px;
+    margin-top:13px;
+    text-align:center;
+    color:#86efac;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.footer{
+    margin-top:22px;
+    text-align:center;
+    color:#5f6470;
+    font-size:10px;
+}
+
+.footer span{
+    color:#a855f7;
+}
+
+/* ===== MOBILE ===== */
+
+@media(max-width:480px){
+
+    .card{
+        padding:27px 19px;
+        border-radius:24px;
+    }
+
+    .title{
+        font-size:29px;
+    }
+
+    .logo{
+        transform:scale(.9);
+        margin-bottom:10px;
+    }
+
+    .features{
+        gap:6px;
+    }
+
+    .feature{
+        padding:10px 4px;
+    }
+
+    .key{
+        font-size:11px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="space">
+
+    <div class="glow one"></div>
+    <div class="glow two"></div>
+
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+
+</div>
+
+
+<div class="card">
+
+    <!-- PURPLE METEOR LOGO -->
+
+    <div class="logo">
+
+        <div class="meteor-tail"></div>
+
+        <div class="meteor-fire"></div>
+
+        <div class="meteor-rock">
+
+            <div class="crater one"></div>
+            <div class="crater two"></div>
+            <div class="crater three"></div>
+            <div class="crater four"></div>
+
+        </div>
+
+        <div class="meteor-edge"></div>
+
+        <div class="spark"></div>
+        <div class="spark"></div>
+        <div class="spark"></div>
+        <div class="spark"></div>
+
+    </div>
+
+
+    <h1 class="title">GravityHub</h1>
+
+    <p class="subtitle">
+        Premium Key System
+    </p>
+
+
+    <div class="features">
+
+        <div class="feature">
+            <div class="feature-icon">🛡️</div>
+            <div class="feature-title">SECURE</div>
+            <div class="feature-text">Protected</div>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">⚡</div>
+            <div class="feature-title">FAST</div>
+            <div class="feature-text">Instant Access</div>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">☄️</div>
+            <div class="feature-title">PREMIUM</div>
+            <div class="feature-text">GravityHub</div>
+        </div>
+
+    </div>
+
+
+    <div class="key-section">
+
+        <span class="key-label">
+            🔑 YOUR ACCESS KEY
+        </span>
+
+        <div class="key" id="key">
+            GravityHubCyperGakwowkebdkdoekennekekejejejedio
+        </div>
+
+    </div>
+
+
+    <button class="copy-btn" onclick="copyKey()">
+        ⚡ Copy Key
+    </button>
+
+
+    <div class="status" id="status"></div>
+
+
+    <div class="footer">
+        Powered by <span>GravityHub</span> • Premium Access
+    </div>
+
+</div>
+
+
+<script>
+
+function copyKey(){
+
+    const key =
+        document.getElementById("key")
+        .innerText
+        .trim();
+
+    navigator.clipboard.writeText(key)
+    .then(()=>{
+
+        const status =
+            document.getElementById("status");
+
+        status.innerHTML =
+            "✓ Key copied successfully!";
+
+        setTimeout(()=>{
+            status.innerHTML="";
+        },2200);
+
+    })
+    .catch(()=>{
+
+        document.getElementById("status").innerHTML =
+            "Unable to copy key.";
+
+    });
+
+}
+
+</script>
+
+</body>
+</html>
